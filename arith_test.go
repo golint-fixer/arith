@@ -26,9 +26,9 @@ func TestUIntAddOK(t *testing.T) {
 }
 
 func TestIntAddOK(t *testing.T) {
-	min := 1
-	min <<= (unsafe.Sizeof(min)*8 - 1)
-	max := min - 1
+	tmin := 1
+	tmin <<= (unsafe.Sizeof(tmin)*8 - 1)
+	tmax := tmin - 1
 
 	tests := []struct {
 		a, b int
@@ -36,18 +36,40 @@ func TestIntAddOK(t *testing.T) {
 	}{
 		{1, 2, true},
 		{0, 0, true},
-		{min, 0, true},
-		{min, 1, true},
-		{max, -1, true},
-		{max, 0, true},
-		{min, -1, false},
-		{max, 1, false},
-		{min, max, true},
+		{tmin, 0, true},
+		{tmin, 1, true},
+		{tmax, -1, true},
+		{tmax, 0, true},
+		{tmin, -1, false},
+		{tmax, 1, false},
+		{tmin, tmax, true},
 	}
 
 	for _, test := range tests {
 		if got := IntAddOK(test.a, test.b); got != test.want {
 			t.Errorf("IntAddOK(%d, %d) = %t\n", test.a, test.b, got)
+		}
+	}
+}
+
+func TestIntSubOK(t *testing.T) {
+	tmin := 1
+	tmin <<= (unsafe.Sizeof(tmin)*8 - 1)
+
+	tests := []struct {
+		a, b int
+		want bool
+	}{
+		{0, 0, true},
+		{123, 0, true},
+		{tmin, 0, true},
+		{0, tmin, false},
+		{1, tmin, false},
+	}
+
+	for _, test := range tests {
+		if got := IntSubOK(test.a, test.b); got != test.want {
+			t.Errorf("IntSubOK(%d, %d) = %t\n", test.a, test.b, got)
 		}
 	}
 }
