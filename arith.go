@@ -31,3 +31,31 @@ func IntSubOK(a, b int) bool {
 	}
 	return IntAddOK(a, -b)
 }
+
+// IntMultOK testing whether a*b is overflow.
+func IntMultOK(a, b int) bool {
+	if a == 0 {
+		return true
+	}
+	p := a * b
+	if p/a != b {
+		return false
+	}
+	return true
+}
+
+// DivByPow2 fast a/2^k calculating.
+func DivByPow2(a int, k byte) int {
+	if a >= 0 {
+		return a >> k
+	}
+	return (a + (1 << k) - 1) >> k
+}
+
+// Abs from int to uint
+func Abs(a int) uint {
+	if a > 0 || a == -a { // 0 or TMin
+		return uint(a)
+	}
+	return uint(-a)
+}
