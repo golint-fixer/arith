@@ -1,0 +1,20 @@
+language: go
+
+go:
+  - 1.6
+  - tip
+
+before_install:
+  - go get -v github.com/golang/lint/golint
+  - go get -v golang.org/x/tools/cmd/cover
+
+install:
+  - go install -race -v std
+  - go get -race -t -v ./...
+  - go install -race -v ./...
+
+script:
+  - go vet ./...
+  - $GOPATH/bin/golint ./...
+  - go test -cpu=2 -race -v ./...
+  - go test -cpu=2 -covermode=atomic ./...
