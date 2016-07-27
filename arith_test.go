@@ -133,3 +133,36 @@ func TestAbs(t *testing.T) {
 		}
 	}
 }
+
+func TestMax(t *testing.T) {
+	tests := []struct {
+		a, b, want int
+	}{
+		{0, 0, 0},
+		{-1, 1, 1},
+		{1, 2, 2},
+		{-2, -3, -2},
+	}
+
+	for _, test := range tests {
+		if got := Max(test.a, test.b); got != test.want {
+			t.Errorf("Max(%d, %d) = %d, want %d\n", test.a, test.b, got, test.want)
+		}
+	}
+}
+
+func TestMin(t *testing.T) {
+	tests := []struct {
+		a, b, want int
+	}{
+		{0, 0, 0},
+		{1, 2, 1},
+		{-1, 1, -1},
+	}
+
+	for _, test := range tests {
+		if got := Min(test.a, test.b); got != test.want {
+			t.Errorf("Min(%d, %d) = %d, want %d\n", test.a, test.b, got, test.want)
+		}
+	}
+}

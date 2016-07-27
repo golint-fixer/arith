@@ -59,3 +59,19 @@ func Abs(a int) uint {
 	}
 	return uint(-a)
 }
+
+// Max return max between a and b
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+// Min return min between a and b
+func Min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
